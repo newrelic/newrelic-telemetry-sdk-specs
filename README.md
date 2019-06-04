@@ -1,6 +1,6 @@
 # Telemetry SDK
 
-The SDK is designed to take telemetry data that already exists and send it to New Relic. It's an extension of the public telemetry ingest HTTP API. It's not an agent or tracer, so it doesn’t instrument anything, but it tries to helpful (and not too clever). It addresses two primary use cases:
+The SDK is designed to accept telemetry data send it to New Relic. It's an extension of the public telemetry ingest HTTP API. It's not an agent or tracer, so it doesn’t instrument anything, but it tries to be helpful (and not too clever). It addresses two primary use cases:
 
 1. You want to record telemetry within an application. For example, you record a summary metric with every request and you’d like to just hand the metric you have to the SDK and let it handle the aggregation, batching, and sending.
  
@@ -23,12 +23,15 @@ The Telemetry SDK suits these needs with two levels of API.
 * The harvester handles aggregation for metrics
 * Metrics are aggregated differently by type, see below
 
+##### Metric Identities
+* Metrics are uniquely defined and aggregated by their `name`, `type` and `attribute keys + values`
+
 #### Error handling
 * The harvester offers error handling in the face of errors?
 
 ## Low-level API
 
-While the telemetry API tries to be helpful, it is supported by a low-level “no frills” API that won’t do anything unless asked explicitly. It knows about the New Relic data structures, like spans and summary metrics. It can accept a batch of telemetry data and return an HTTP request object or send it for you and return the response object. If you really need to directly manipulate and send data, this API offers that full control.
+While the telemetry API tries to be helpful, it is supported by a low-level “no frills” API that won’t do anything unless asked explicitly. It knows about the New Relic data structures, like spans and summary metrics. It can accept a batch of telemetry data and return an HTTP request object or send it for you and return the response object. If you really need to directly manipulate and send data without built-in aggregation, this API offers that full control.
 
 ### Batches
 * A batch has methods to accept telemetry
@@ -36,6 +39,7 @@ While the telemetry API tries to be helpful, it is supported by a low-level “n
 
 ### Metrics
 * To what extent is this just documenting the metrics backend?
+* Do we want to talk about attributes here? Limits/cardinality/how common attributes work?
 
 #### Gauge
 
