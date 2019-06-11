@@ -2,14 +2,51 @@
 
 All communication with New Relic **MUST** take place via the public [telemetry ingest APIs](https://source.datanerd.us/ingest/ingest-specs). These APIs all share a common JSON format to provide a consistent experience across data types. SDK implementations **MUST** adhere to this common format when sending data to New Relic.
 
-
 ## Request format
 
-The SDK **MUST** use the [Telemetry ingest API](https://source.datanerd.us/ingest/ingest-specs/blob/master/ingestConsistency.md) to send data to New Relic. 
+The SDK **MUST** use the [Telemetry ingest API](https://source.datanerd.us/ingest/ingest-specs/blob/master/ingestConsistency.md) to send data to New Relic. The SDK sends all telemetry of a given type to the appropriate telemetry ingest endpoint. 
 
 * SDKs **MUST** compress the JSON payload with `gzip` encoding by default. 
 * Only send API keys as headers (not query params)
 * User-Agent string: `NewRelic-<language>-TelemetrySDK/<version>`
+
+### Payload
+
+Payloads of different telemetry types cannot be combined.
+
+All JSON payloads sent to New Relic **MUST** use the [New Relic common format](https://source.datanerd.us/ingest/ingest-specs/blob/master/nrCommonFormat.md).
+
+This is an example of the common format:
+
+```
+[
+  {
+    "common": {
+      <intrinsic attributes>
+      "attributes" : {
+          <custom attributes>
+        }
+    },
+    "<spans|logs|metrics|events>" : [
+      {
+        <intrinsic attributes>,
+        "timestamp": 1522434601409,
+        "attributes" : {
+          <custom attributes>
+        }
+      },
+      {
+        <intrinsic attributes>,
+        "timestamp": 1522434601409,
+        "attributes" : {
+          <custom attributes>
+        }
+      } ]
+  }
+]
+```
+
+SDK implementations **SHOULD** use the top-level common block to reduce the size of repeated attributes in payloads when applicable.
 
 ## Response codes
 
