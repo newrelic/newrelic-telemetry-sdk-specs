@@ -12,4 +12,4 @@ The SDK is designed to accept telemetry data send it to New Relic. It's a semant
 * [APIs](./sdk-apis.md)
 * [Validation](./validation.md)
 * [Configuration & Logging](./configuration-and-logging.md)
-* [Limits](./limits)
+* [Limits](./limits.md)
