@@ -75,7 +75,7 @@ SDK implementations **MUST** perform response code error handling in the Telemet
 2. Attempt to send again `5 seconds` later (the harvest frequency) for *2 more tries*
 3. Telemetry SDK is still unable to send data, double the wait time and try again
 4. Repeat step `3.` until the maximum wait time is hit (`HarvestFrequency * 16`) or data is successfully sent
-5. Telemetry SDK continues to receieve `500` errors and will keep attempting to send data every `80 seconds` (in this case) until successful.
+5. Telemetry SDK continues to receive `500` errors and will keep attempting to send data every `80 seconds` (in this case) until successful.
 
 For additional information on how to handle data collection and storage when these types of errors occur see [Graceful degradation](#graceful-degradation)
 
@@ -89,6 +89,10 @@ SDK implementations **SHOULD NOT** perform response code error handling as noted
 
 The SDK may be unable to communicate with New Relic for a variety of reasons including network outages, misconfigurations or service outages. The Telemetry API **MUST** provide facilities to gracefully handle these failure cases or allow the consumer to handle them as they see fit.
 
+All state is scoped on a per-request basis, and persists in the case of nonsequential
+response codes. For example, if the SDK encounters three `500`s, then a `413`, the split
+payload requests will have a 4x multiplier for the next `500` in the chain.
+
 ### Telemetry API
 
 The telemetry API **MUST** provide the ability to handle continued collection and retention of telemetry data despite a temporary inability to communicate with New Relic.
@@ -100,6 +104,9 @@ The SDK **MUST NOT** prevent data collection for any reason. When the SDK is una
 When a payload is too large to be accepted by New Relic (i.e. it is above the `1 MB` limit) the SDK **MUST** split this payload in half and retry each half individually. If either payload receives another `413` exception it **MUST** attempt to split once more. If any payload receieves a `413` exception at this stage the data **MUST** be dropped and a notification **SHOULD** be logged.
 
 The payload **SHOULD** be split *after* receiving a 413 response code and should not be done optimistically.
+
+Retry state for each half should be maintained individually. For example, a `500` returned
+for the first half will not increment the failure count for the second half.
 
 #### 429 - Too many requests #####
 
