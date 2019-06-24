@@ -8,6 +8,8 @@ SDK implementations **MUST** allow for configuration of the following options:
   * To facilitate communication with alternative New Relic backends as well as allowing for simple integration testing with a mock backend the SDK should allow each ingest URL to be overridden.
 3. `Harvest interval`
   * The harvest interval should default to `5 seconds` with the ability for consumers of the SDK to set a custom interval in `seconds`.
+4. `Logging`
+  * Whether the SDK logs at all, the verbosity of the log, and the output device should all be configurable.
 
 ## No-op behavior
 
@@ -17,6 +19,10 @@ By providing a no-op implementation this means that any call to the Telemetry AP
 
 # Logging
 
-SDK implementations **MUST** write troubleshooting and error information to a log file by whatever means is the most idiomatic for the language. SDKs **MAY** choose to write to an existing application log or they **MAY** log to their own file.
+SDK implementations **MUST** write troubleshooting and error information to a log file by whatever means is the most idiomatic for the language. 
+SDKs **MUST** provide a mechanism to configure the destination and verbosity of the log. 
 
-Logs should be used judiciously and generally only in exceptional error cases or when needed for SDK supportability.
+SDKs also **MUST** provide a way of disabling or silencing the SDK's logging.  
+
+When enabled, logging should be used judiciously and generally only in exceptional error 
+cases or when needed for SDK supportability.
