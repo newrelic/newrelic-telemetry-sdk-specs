@@ -66,6 +66,10 @@ SDK implementations **MUST** perform response code error handling in the Telemet
 | `429` | Too many requests | each failure | Retry based on `Retry-After` response header | no | `Retry-After` (`integer`) for how long wait until next retry in `seconds` |
 | `Anything else` | Unknown | each failure | Retry with backoff | no | Backoff sequence (`H` = Harvest period in `seconds`)<br><br>[`H*1`, `H*1`, `H*2`, `H*4`, `H*8`, `H*16` (repeat `H*16` until success)] |
 
+#### Backoff
+
+why backoff
+
 #### Backoff example
 
 * Harvest Period = `5 seconds`
@@ -120,6 +124,28 @@ Any other response code encountered by the SDK may indicate a transient error co
 
 Data collection **MUST** continue to occur, data from the failed batch **MUST** be retained indefinitely and **MAY** be aggregated into the next batch if possible to conserve memory. If the failed batch cannot be aggregated into the next batch it **MUST** be appended to it.
 
+#### Any other connection failure ####
+
+For any other connection failure, the SDK should follow [the backoff strategy above](#backoff).
+
 ### Low-level API
 
 The low-level API **SHOULD NOT** provide any automatic handling of error cases. However, the low-level API **MUST** propagate information about these failure modes to the consumer of the API. This communication mechanism should follow a pattern that is idiomatic for the respective SDK language and may include exceptions, errors or similar facilities.
+
+
+* error handling
+things to be consistent about: it should be configurable, perhaps timeout, number of retries, delay between retries, number of splits?
+
+* splitting
+
+event-based versus time-based sending
+event: buffer is full
+configuration for the size-based limit?
+limit based on megabytes -- this is challenging
+when a new metric is added, offer a hook to determine whether to send the data now
+stream metrics into a gzip compression, checking the size and harvesting before full
+* this makes gzip less efficient
+conservative estimate of the gzip compression? ugh
+logarithmic number of compression checks
+compressed versus uncompressed
+
