@@ -9,7 +9,7 @@ SDK implementations **MUST** allow for configuration of the following options:
 3. `Harvest interval`
   * The harvest interval should default to `5 seconds` with the ability for consumers of the SDK to set a custom interval in `seconds`.
 4. `Logging`
-  * Whether the SDK logs at all, the verbosity of the log, and the output device should all be configurable.
+  * Whether the SDK logs at all, the verbosity, and the destination of the log should all be configurable.
 
 ## No-op behavior
 
@@ -22,7 +22,11 @@ By providing a no-op implementation this means that any call to the Telemetry AP
 SDK implementations **MUST** write troubleshooting and error information to a log file by whatever means is the most idiomatic for the language. 
 SDKs **MUST** provide a mechanism to configure the destination and verbosity of the log. 
 
-SDKs also **MUST** provide a way of disabling or silencing the SDK's logging.  
+SDKs also **MUST** provide a way of disabling the SDK's logging.  
 
-When enabled, logging should be used judiciously and generally only in exceptional error 
-cases or when needed for SDK supportability.
+When enabled, SDKs should primarily use three logging levels: `ERROR`,`INFO`, `DEBUG`, 
+with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
+
+* `ERROR` level messages only in exceptional error cases
+* `INFO` level messages sparingly
+* `DEBUG` level messages as much as necessary for SDK supportability
