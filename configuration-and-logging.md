@@ -20,7 +20,7 @@ By providing a no-op implementation this means that any call to the Telemetry AP
 # Logging
 
 SDK implementations **MUST** write troubleshooting and error information to a log file by whatever means is the most idiomatic for the language. 
-SDKs **MUST** provide a mechanism to configure the destination and verbosity of the log. 
+SDKs **MUST** provide a mechanism to configure the destination and verbosity of the log. When using the default configuration, the SDK should not log.
 
 SDKs also **MUST** provide a way of disabling the SDK's logging.  
 
