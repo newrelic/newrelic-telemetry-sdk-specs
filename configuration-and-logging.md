@@ -9,7 +9,7 @@ SDK implementations must allow for configuration of the following options:
 3. `Harvest interval`
   * The harvest interval should default to `5 seconds` with the ability for consumers of the SDK to set a custom interval in `seconds`.
 4. `Logging`
-  * Whether the SDK logs at all, the verbosity, and the destination of the log should all be configurable.
+  * Whether the SDK logs at all, the verbosity, and the destination of the log must all be configurable.
 
 ## No-op behavior
 
