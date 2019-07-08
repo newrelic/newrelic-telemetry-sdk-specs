@@ -26,5 +26,20 @@ When enabled, SDKs should primarily use three logging levels: `ERROR`,`INFO`, `D
 with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
 
 * `ERROR` level messages only in exceptional error cases
+  * _example_: if the connection to New Relic is refused
+  ```
+  ERROR : Failed to open TCP connection to #{config.host_url} (Connection refused - connect(2))
+  ```
 * `INFO` level messages sparingly
+  * _example_: on startup after the config has been processed listing the configured options:
+  ```
+  INFO : New Relic Telemetry SDK started
+  INFO : Connecting to #{config.host_url}
+  INFO : Harvesting every #{config.harvest_interval} seconds
+  ```
 * `DEBUG` level messages as much as necessary for SDK supportability
+  * _example_: when handling responses from the Metric API backend:
+  ```
+  DEBUG : Reported 403, Forbidden
+  DEBUG : Reported 202, Accepted
+  ```
