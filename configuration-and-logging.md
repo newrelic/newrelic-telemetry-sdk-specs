@@ -25,7 +25,7 @@ When using the default configuration, the SDK should not log.
 When enabled, SDKs should primarily use three logging levels: `ERROR`,`INFO`, `DEBUG`, 
 with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
 
-* `ERROR` level messages only in exceptional error cases
+* `ERROR` level messages only in error cases
   * _example_: if the connection to New Relic is refused
   ```
   ERROR : Failed to open TCP connection to #{config.host_url} (Connection refused - connect(2))
