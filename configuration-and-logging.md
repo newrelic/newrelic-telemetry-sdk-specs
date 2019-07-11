@@ -15,7 +15,7 @@ SDK implementations must allow for configuration of the following options:
 
 When the Telemetry API is in use by customers it will lead to API calls being used (possibly extensively) throughout customer code. If the customer needs to quickly disable these API calls the SDK must provide a no-op implementation that the customer can swap in without requiring that they modify all API call sites.
 
-By providing a no-op implementation this means that any call to the Telemetry API with effectively have zero cost until a real implementation is swapped back in. 
+By providing a no-op implementation this means that any call to the Telemetry API will effectively have zero cost until a real implementation is swapped back in. 
 
 # Logging
 
