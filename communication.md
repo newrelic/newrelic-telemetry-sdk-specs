@@ -57,14 +57,16 @@ SDK implementations **MUST** perform response code error handling in the Telemet
 | Response code | Description | Log error | Retry behavior | Drop data | Other |
 | ------------- | ------------| --------- | ---------------| ----------|------|
 | `202` | Successful request | | | | |
-| `400` | Generally invalid request | once | no | yes | |
-| `403` | Authentication failure | once | no | yes | |
-| `404` | Incorrect path | once | no | yes | |
-| `405` | Incorrect HTTP method (`POST` required) | once | no | yes | Should never occur in the Telemetry API or Low-level API but should still be handled |
-| `411` | Missing `Content-Length` header | once | no | yes | Should never occur in the Telemetry API or Low-level API but should still be handled |
+| `400` | Generally invalid request | once | no | yes* | |
+| `403` | Authentication failure | once | no | yes* | |
+| `404` | Incorrect path | once | no | yes* | |
+| `405` | Incorrect HTTP method (`POST` required) | once | no | yes* | Should never occur in the Telemetry API or Low-level API but should still be handled |
+| `411` | Missing `Content-Length` header | once | no | yes* | Should never occur in the Telemetry API or Low-level API but should still be handled |
 | `413` | Payload too large (`1 MB` limit) | each failure | `split` data and retry | no |
 | `429` | Too many requests | each failure | Retry based on `Retry-After` response header | no | `Retry-After` (`integer`) for how long wait until next retry in `seconds` |
 | `Anything else` | Unknown | each failure | Retry with backoff | no | Backoff sequence (`H` = Harvest period in `seconds`)<br><br>[`H*1`, `H*1`, `H*2`, `H*4`, `H*8`, `H*16` (repeat `H*16` until success)] |
+
+\*see: [Dropping data](#dropping-data)
 
 #### Backoff
 
@@ -87,7 +89,13 @@ For additional information on how to handle data collection and storage when the
 
 SDK implementations **SHOULD NOT** perform response code error handling as noted above in the low-level API. However, the low-level API **MUST** propagate this error information to the consumer of that API. This can be done via exceptions, errors or a response object. Additional information can be found in the [Validation](#validation) section below.  
 
+### Dropping data
 
+Whenever dropping data, the SDK must emit an error level log statement indicating the 
+number of metrics dropped. SDKs should also log all of the dropped data at the debug level.
+
+SDKs should not attempt to merge a failed payload with the rest of the data being stored
+by the SDK's aggregator.  
 
 ## Graceful degradation
 
