@@ -124,13 +124,9 @@ for the first half will not increment the failure count for the second half.
 
 New Relic may return this response code if it needs to throttle inbound requests from the SDK. This may happen for a variety of reasons and the SDK **MUST** adhere to the `Retry-After` header that is returned by the telemetry ingest endpoint.
 
-Data collection **MUST** continue to occur, data from the failed batch **MUST** be retained indefinitely and **MAY** be aggregated into the next batch if possible to conserve memory. If the failed batch cannot be aggregated into the next batch it **MUST** be appended to it.
-
 #### All other response codes #####
 
 Any other response code encountered by the SDK may indicate a transient error condition.
-
-Data collection **MUST** continue to occur, data from the failed batch **MUST** be retained indefinitely and **MAY** be aggregated into the next batch if possible to conserve memory. If the failed batch cannot be aggregated into the next batch it **MUST** be appended to it.
 
 #### Any other connection failure ####
 
