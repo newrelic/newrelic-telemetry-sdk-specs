@@ -10,6 +10,8 @@ SDK implementations must allow for configuration of the following options:
   * The harvest interval should default to `5 seconds` with the ability for consumers of the SDK to set a custom interval in `seconds`.
 4. `Logging`
   * Whether the SDK logs at all, the verbosity, and the destination of the log must all be configurable.
+5. `Audit logging enabled`
+  * If audit logging is enabled, the SDK should record additional highly verbose debugging information at the `DEBUG` logging level.  The default value for this setting should be `false`.
 
 ## No-op behavior
 
@@ -42,4 +44,10 @@ with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
   ```
   DEBUG : Reported 403, Forbidden
   DEBUG : Reported 202, Accepted
+  ```
+
+If audit logging is enabled in the SDK configuration, additional highly verbose debugging information should be logged at the `DEBUG` level:
+  * _example_: every payload sent to the Metric API backend:
+  ```
+  DEBUG : Sent payload: '{ ... a large json payload here ...}'
   ```
