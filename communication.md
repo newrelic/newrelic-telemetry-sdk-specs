@@ -64,7 +64,7 @@ SDK implementations **MUST** perform response code error handling in the Telemet
 | `411` | Missing `Content-Length` header | once | no | yes* | Should never occur in the Telemetry API or Low-level API but should still be handled |
 | `413` | Payload too large (`1 MB` limit) | each failure | `split` data and retry | no |
 | `429` | Too many requests | each failure | Retry based on `Retry-After` response header | no | `Retry-After` (`integer`) for how long wait until next retry in `seconds` |
-| `Anything else` | Unknown | each failure | Retry with backoff | no | Backoff sequence (`H` = Harvest period in `seconds`)<br><br>[`H*1`, `H*1`, `H*2`, `H*4`, `H*8`, `H*16` (repeat `H*16` until success)] |
+| `Anything else` | Unknown | each failure | Retry with backoff | not yet | Backoff sequence (`H` = Harvest period in `seconds`)<br><br>[`H*1`, `H*1`, `H*2`, `H*4`, `H*8`, `H*16` (repeat `H*16` until success)] |
 
 \*see: [Dropping data](#dropping-data)
 
@@ -92,10 +92,10 @@ SDK implementations **SHOULD NOT** perform response code error handling as noted
 ### Dropping data
 
 Whenever dropping data, the SDK must emit an error level log statement indicating the 
-number of metrics dropped. SDKs should also log all of the dropped data at the debug level.
+number of metrics dropped. 
 
 SDKs should not attempt to merge a failed payload with the rest of the data being stored
-by the SDK's aggregator.  
+by the SDK.  
 
 ## Graceful degradation
 
