@@ -11,7 +11,7 @@ SDK implementations must allow for configuration of the following options:
 4. `Logging`
   * Whether the SDK logs at all, the verbosity, and the destination of the log must all be configurable.
 5. `Audit logging enabled`
-  * If audit logging is enabled, the SDK should record additional highly verbose debugging information at the `DEBUG` logging level.  The default value for this setting should be `false`.
+  * If audit logging is enabled, the SDK should record additional highly verbose debugging information at the `DEBUG` logging level.  The default value for this setting must be `false`.
 
 ## No-op behavior
 
