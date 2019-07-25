@@ -4,10 +4,12 @@ SDK implementations **MUST** allow for configuration of the following options:
 
 1. `API key`
   * The API is required in order to communicate with the New Relic telemetry ingest APIs. 
-2. `Host URL override`
+1. `Host URL override`
   * To facilitate communication with alternative New Relic backends as well as allowing for simple integration testing with a mock backend the SDK should allow each ingest URL to be overridden.
-3. `Harvest interval`
+1. `Harvest interval`
   * The harvest interval should default to `5 seconds` with the ability for consumers of the SDK to set a custom interval in `seconds`.
+1. `Request timeout`
+  * The total amount of time to keep retrying a failed request.  
 
 ## No-op behavior
 

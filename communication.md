@@ -64,7 +64,7 @@ SDK implementations **MUST** perform response code error handling in the Telemet
 | `411` | Missing `Content-Length` header | once | no | yes* | Should never occur in the Telemetry API or Low-level API but should still be handled |
 | `413` | Payload too large (`1 MB` limit) | each failure | `split` data and retry | no |
 | `429` | Too many requests | each failure | Retry based on `Retry-After` response header | no | `Retry-After` (`integer`) for how long wait until next retry in `seconds` |
-| `Anything else` | Unknown | each failure | Retry with backoff | not yet | Backoff sequence (`H` = Harvest period in `seconds`)<br><br>[`H*1`, `H*1`, `H*2`, `H*4`, `H*8`, `H*16` (repeat `H*16` until success)] |
+| `Anything else` | Unknown | each failure | Retry with backoff | not yet | Backoff sequence (`H` = Harvest period in `seconds`)<br><br>[`H*1`, `H*1`, `H*2`, `H*4`, `H*8`, `H*16` (repeat `H*16` until the configured _request timeout_ has elapsed)] |
 
 \*see: [Dropping data](#dropping-data)
 
@@ -74,14 +74,20 @@ why backoff
 
 #### Backoff example
 
-* Harvest Period = `5 seconds`
+* Harvest period = `5 seconds`
+* Request timeout = `300 seconds`
 * Backoff sequence = [`5`, `5`, `10`, `20`, `40`, `80`]
 
-1. Telemetry SDK starts receiving a `500` response code when sending a payload
-2. Attempt to send again `5 seconds` later (the harvest frequency) for *2 more tries*
-3. Telemetry SDK is still unable to send data, double the wait time and try again
-4. Repeat step `3.` until the maximum wait time is hit (`HarvestFrequency * 16`) or data is successfully sent
-5. Telemetry SDK continues to receive `500` errors and will keep attempting to send data every `80 seconds` (in this case) until successful.
+1. The telemetry SDK attempts to send a payload at t=13:00:00, and receives a `500` response.
+1. The telemetry SDK attempts to send again at
+  * +5 : 13:00:05
+  * +5 : 13:00:10
+  * +10 : 13:00:20
+  * +20 : 13:00:40
+  * +40 : 13:01:20
+  * +80 : 13:02:40
+  * +80 : 13:04:00
+  * -- timeout
 
 For additional information on how to handle data collection and storage when these types of errors occur see [Graceful degradation](#graceful-degradation)
 
@@ -92,7 +98,7 @@ SDK implementations **SHOULD NOT** perform response code error handling as noted
 ### Dropping data
 
 Whenever dropping data, the SDK must emit an error level log statement indicating the 
-number of metrics dropped. 
+number of data points dropped. 
 
 SDKs should not attempt to merge a failed payload with the rest of the data being stored
 by the SDK.  
