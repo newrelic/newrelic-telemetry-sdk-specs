@@ -21,8 +21,7 @@ By providing a no-op implementation this means that any call to the Telemetry AP
 
 # Logging
 
-SDK implementations should log troubleshooting and error information by whatever means is the most idiomatic for the language. SDKs must provide a mechanism to configure the destination and verbosity of the log, and a way to disable the SDK's logging. 
-When using the default configuration, the SDK should not log.
+SDK implementations should log troubleshooting and error information by whatever means is the most idiomatic for the language. The user must be able to change the destination and verbosity of the log, and to disable the SDK's logging. 
 
 When enabled, SDKs should primarily use three logging levels: `ERROR`,`INFO`, `DEBUG`, 
 with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
