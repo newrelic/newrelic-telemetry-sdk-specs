@@ -1,8 +1,8 @@
 # Telemetry SDK specs
 The telemetry SDK specs is a documentation repository that describes the basic features
 shared across language implementations of the New Relic Telemetry SDKs. You should use
-these specs to help you understand what is included in each Telemetry SDK, why they were
-designed the way they are, and how they work so that you can extend them and contribute
+these specs to help you understand what is commonly included in the Telemetry SDKs, why
+they were designed the way they are, and how they work so that you can extend them and contribute
 effectively.
 
 ## The Telemetry SDK
@@ -13,7 +13,15 @@ agents or tracers, and they don't instrument anything. They try to be helpful, s
 user's job of sending telemetry data to New Relic can be done in the right way, easily.
 Lastly, they are extensible and open source, so they can be tailored for each use case.
 
-As the New Relic HTTP Telemetry Ingest API is public facing, with user documentation, a
+
+The Telemetry SDK's primary use case is:
+
+A user has telemetry data: metrics, traces, logs, or events, that have already been created
+(for example: from Prometheus or OpenTelemetry), and they want to get them into New Relic
+easily and efficiently.  The Telemetry SDK can be used to quickly write an integration
+with the New Relic Telemetry Ingest API.
+
+As New Relic's Telemetry Ingest API is public facing, with user documentation, a
 customer could interact with it using a simple HTTP Client in any language.  The values
 that the telemetry SDKs provide over an HTTP Client are:
 
