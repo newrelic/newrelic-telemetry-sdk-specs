@@ -1,5 +1,5 @@
-# Contributing to the New Relic Telemetry SDK Spec
-Thanks for your interest in contributing to the Telemetry SDK Spec! We look forward to engaging with you.
+# Contributing to the New Relic Telemetry SDK Specs
+Thanks for your interest in contributing to the Telemetry SDK Specs! We look forward to engaging with you.
 
 ## How to Contribute
 * Read this CONTRIBUTING file
