@@ -8,8 +8,13 @@ SDK implementations must allow for configuration of the following options:
   * To facilitate communication with alternative New Relic backends as well as allowing for simple integration testing with a mock backend the SDK should allow each ingest URL to be overridden.
 1. `Harvest interval`
   * The harvest interval should default to `5 seconds` with the ability for consumers of the SDK to set a custom interval in `seconds`.
-1. `Request timeout`
-  * The total amount of time to keep retrying a failed request.  
+1. `Failed request retrying`
+  * It must be possible to configure the amount of time to wait after a failed request 
+    before attempting to send the request again.  
+  * It must also be possible to configure the total number of times the SDK will attempt
+    to send a failed request, and/or the total amount of time that the SDK will continue
+    to attempt to send a failed request.
+    See [communication backoff](./communication.md#backoff). 
 1. `Logging`
   * Whether the SDK logs at all, the verbosity, and the destination of the log must all be configurable.
 
