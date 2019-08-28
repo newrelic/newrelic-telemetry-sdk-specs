@@ -15,6 +15,8 @@ SDK implementations must allow for configuration of the following options:
     See [communication backoff](./communication.md#graceful-degradation).
 5. `Logging`
   * Whether the SDK logs at all, the verbosity, and the destination of the log must all be configurable.
+5. `Audit logging enabled`
+  * If audit logging is enabled, the SDK should record additional highly verbose debugging information at the `DEBUG` logging level.  The default value for this setting must be `false`.
 
 ## No-op behavior
 
@@ -24,8 +26,9 @@ By providing a no-op implementation this means that any call to the Telemetry AP
 
 # Logging
 
-SDK implementations should log troubleshooting and error information by whatever means is the most idiomatic for the language. SDKs must provide a mechanism to configure the destination and verbosity of the log, and a way to disable the SDK's logging.
-When using the default configuration, the SDK should not log.
+SDK implementations should log troubleshooting and error information by whatever means is
+the most idiomatic for the language. SDKs must provide a mechanism to configure the
+destination and verbosity of the log, and a way to disable the SDK's logging.
 
 When enabled, SDKs should primarily use three logging levels: `ERROR`,`INFO`, `DEBUG`,
 with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
@@ -47,4 +50,10 @@ with `DEBUG` being the most verbose and `ERROR` the least.  SDKs should log:
   ```
   DEBUG : Reported 403, Forbidden
   DEBUG : Reported 202, Accepted
+  ```
+
+If audit logging is enabled in the SDK configuration, additional highly verbose debugging information should be logged at the `DEBUG` level:
+  * _example_: every payload sent to the Metric API backend:
+  ```
+  DEBUG : Sent payload: '{ ... a large json payload here ...}'
   ```
