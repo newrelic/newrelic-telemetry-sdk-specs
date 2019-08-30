@@ -103,14 +103,14 @@ _total retry duration_ instead of _max retries_.
 
 1. The telemetry SDK attempts to send a payload at t=13:00:00, and receives a `500` response.
 1. The telemetry SDK attempts to send again at
+    * +0 : 13:00:00
     * +5 : 13:00:05
-    * +5 : 13:00:10
-    * +10 : 13:00:20
-    * +20 : 13:00:40
-    * +40 : 13:01:20
-    * +80 : 13:02:40
-    * +80 : 13:03:40
-    * +80 : 13:05:00
+    * +10 : 13:00:15
+    * +20 : 13:00:35
+    * +40 : 13:01:15
+    * +80 : 13:02:35
+    * +80 : 13:03:55
+    * +80 : 13:05:15
     * -- max retries exceeded. The data in this request should be dropped. See [dropping data](#dropping-data).
 
 ### Dropping data
