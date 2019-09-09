@@ -70,7 +70,7 @@ SDK implementations must perform response code error handling in the Telemetry A
 | `429` | Too many requests | each failure | Retry based on `Retry-After` response header | no | `Retry-After` (`integer`) for how long wait until next retry in `seconds` |
 | `Anything else` | Unknown | each failure | Retry with backoff | not yet | See [graceful degradation](#graceful-degradation). |
 
-#### Graceful degradation
+### Graceful degradation
 
 The SDK may be unable to communicate with New Relic for a variety of reasons including
 network outages, misconfiguration or service outages. Telemetry SDKs must provide
@@ -131,7 +131,7 @@ The telemetry API must provide the ability to handle continued collection and re
 
 The SDK must not prevent data collection for any reason. When the SDK is unable to communicate with New Relic and the response code allows for retries (see: [Response codes](#response-codes)) the SDK must attempt to retain this data using the respective strategy below:
 
-#### 413 - Payload too large #####
+#### 413 - Payload too large
 
 When a payload is too large to be accepted by New Relic (i.e. it is above the `1 MB` limit)
 the SDK must split this payload into multiple batches and retry each batch individually.
@@ -149,7 +149,7 @@ Retry state is scoped on a per-request basis, and persists in the case of nonseq
 response codes. For example, if the SDK encounters three `500`s, then a `413`, the split
 payload requests will have a 4x multiplier for the next `500` in the chain.
 
-#### 429 - Too many requests #####
+#### 429 - Too many requests
 
 New Relic may return this response code if it needs to throttle inbound requests from the
 SDK. This may happen for a variety of reasons and the SDK must adhere to the `Retry-After`
@@ -159,11 +159,10 @@ The SDK must respect the value of the `Retry-After` header.  If the value of the
 `Retry-After` header is greater than the total backoff time, the data must be dropped.
 The SDK must not attempt to send the same data again before `Retry-After` time has elapsed.
 
-#### All other response codes #####
+#### All other response codes
 
 Any other response code encountered by the SDK may indicate a transient error condition.
 
-#### Any other connection failure ####
+#### Any other connection failure
 
 For any other connection failure, the SDK should follow [the backoff strategy above](#graceful-degradation).
-

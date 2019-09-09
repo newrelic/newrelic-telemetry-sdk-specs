@@ -36,11 +36,11 @@ It must be possible to construct a metric with a name and set of attributes.
   An example:
   ```java
   public void setValue(double value) {
-    this.value = value;
+      this.value = value;
   }
 
   public void incrementValue(double value) {
-    this.value += value;
+      this.value += value;
   }
   ```
 
@@ -59,8 +59,8 @@ It must be possible to construct a metric with a name and set of attributes.
   An example:
   ```java
   public void setValue(double value) {
-    this.value = value;
-    this.timestamp = System.currentTimeMillis();
+      this.value = value;
+      this.timestamp = System.currentTimeMillis();
   }
   ```
 
@@ -82,10 +82,10 @@ It must be possible to construct a metric with a name and set of attributes.
   An example:
   ```java
   public void record(double value) {
-    this.count += 1;
-    this.sum += value;
-    this.max = Math.max(this.max, value);
-    this.min = Math.min(this.min, value);
+      this.count += 1;
+      this.sum += value;
+      this.max = Math.max(this.max, value);
+      this.min = Math.min(this.min, value);
   }
   ```
 
