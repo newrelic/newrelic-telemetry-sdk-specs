@@ -34,8 +34,8 @@ that the telemetry SDKs provide over an HTTP Client are:
 
 ## Specs
 
+* [Capabilities](./capabilites.md)
 * [Communication with New Relic](./communication.md)
-* [APIs](./sdk-apis.md)
 * [Validation](./validation.md)
 * [Configuration & Logging](./configuration-and-logging.md)
 * [Limits](./limits.md)
