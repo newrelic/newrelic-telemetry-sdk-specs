@@ -37,20 +37,20 @@ It must be possible to construct a metric with a name and set of attributes.
   | field | type | notes |
   | ----- | ---- | ----- |
   | `value` | numeric | |
-  | `interval.ms` | numeric | Length of the time window, in milliseconds.  Must be a positive whole number. |
+  | `interval` | numeric | Length of the time window.  Must be a positive whole number. |
 
-  It must be possible to construct a count metric with a value, to `set` the value of an
+  It must be possible to construct a count metric with a value.
+
+  When aggregating, it must be possible to `set` the value of an
   existing count metric, and to `increment` the value by an arbitrary amount.
 
   An example:
-  ```java
-  public void setValue(double value) {
-      this.value = value;
-  }
+  ```python
+  def setValue(self, value):
+      self.value = value;
 
-  public void incrementValue(double value) {
-      this.value += value;
-  }
+  def incrementValue(self, value):
+      self.value += value;
   ```
 
 #### `Gauge`
@@ -61,15 +61,16 @@ It must be possible to construct a metric with a name and set of attributes.
   | ------ | ---- |
   | `value` | numeric |
 
-  It must be possible to construct a gauge metric with a value and timestamp.  It must
-  also be possible to `set` the value of an existing gauge metric. When the value is
-  changed, the `timestamp` field must be set to the current time.
+  It must be possible to construct a gauge metric with a value and timestamp.
+
+  When aggregating, it must also be possible to `set` the value of an existing gauge
+  metric. When the value is set, the `timestamp` field must be set to the current time.
 
   An example:
-  ```java
-  public void setValue(double value) {
-      this.value = value;
-      this.timestamp = System.currentTimeMillis();
+  ```golang
+  func (g *Gauge) Value(val float64) {
+      g.Value = val
+      g.Timestamp = time.Now()
   }
   ```
 
@@ -84,10 +85,9 @@ It must be possible to construct a metric with a name and set of attributes.
   | `count` | integer |
   | `sum` | integer |
 
-  When the fields of a summary are reported to New Relic, they are combined into a single
-  JSON object as the `value` field.
+  It must be possible to construct a summary metric with a min, max, count, and sum.
 
-  It must be possible to adjust all of these value fields together.
+  When aggregating, it must be possible to adjust all of these value fields together.
   An example:
   ```java
   public void record(double value) {
@@ -97,15 +97,13 @@ It must be possible to construct a metric with a name and set of attributes.
       this.min = Math.min(this.min, value);
   }
   ```
+  \*When the fields of a summary are reported to New Relic, they are combined into a
+  single JSON object as the `value` field.
 
 ### Metric Batch
 
   A metric batch is a [batch](#batches) that contains only metrics.  Metric batches can
   contain a mixture of metric types.
-
-### Aggregating
-
-
 
 ## Spans
 
