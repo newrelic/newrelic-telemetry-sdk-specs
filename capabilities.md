@@ -107,7 +107,22 @@ It must be possible to construct a metric with a name and set of attributes.
 
 ## Spans
 
+The SDK must provide a representation of a span with the following fields.  It must be
+possible to serialize this representation for transport to New Relic.
 
+The SDK must allow setting all of these fields on a span:
+
+  | field          | type      | notes                    |
+  | ------         | ----      | -----                    |
+  | `id`           | string    | _required_               |
+  | `trace id`     | string    | _required_               |
+  | `timestamp`    | timestamp | _required_               |
+  | `duration`     | numeric   | _optional_ Default null. |
+  | `name`         | string    | _optional_ Default null. |
+  | `parent id`    | string    | _optional_ Default null. |
+  | `service name` | string    | _optional_ Default null. |
+
+See also: https://docs.newrelic.com/docs/apm/distributed-tracing/trace-api/introduction-new-relic-trace-api
 
 ### Span Batch
 
