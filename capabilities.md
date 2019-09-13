@@ -8,9 +8,7 @@ The Telemetry SDK implements the New Relic Metric Data Model.  For detailed info
 about the Metric model, please see the [public docs](link_to_documentation).
 
 The SDK must support two primary use cases:
-1. The SDK must provide a representation of each of New Relic's supported metric types.
-   These representations may be immutable data structures, or they may be mutable objects,
-   depending on the idioms of the language.  It must be possible to construct them with
+1. It must be possible to construct them with
    pre-computed values, and the SDK must be capable of serializing them into the for
    transport to New Relic.
 2. The SDK must provide aggregation functionality for each of New Relic's supported metric
@@ -18,7 +16,10 @@ The SDK must support two primary use cases:
 
 ### Metric Types
 
-The SDK supports three metric types: [Count](#count), [Gauge](#gauge), and [Summary](#summary).
+The SDK must provide a representation of each of New Relic's supported metric types:
+[Count](#count), [Gauge](#gauge), and [Summary](#summary).  These representations may be
+immutable data structures, or they may be mutable objects, depending on the idioms of the
+language.
 
 All metric types have these common fields:
 
@@ -27,8 +28,6 @@ All metric types have these common fields:
 | `name` | text | This is the name of a metric. |
 | `attributes` | dictionary/map/hash | A map of key/value pairs associated with this metric.  Values can be a string, numeric, or boolean. |
 | `timestamp`  | timestamp | A timestamp is required on every metric.  It may be omitted if it is included in the metric [batch](#metric-batch). |
-
-It must be possible to construct a metric with a name and set of attributes.
 
 #### `Count`
 
