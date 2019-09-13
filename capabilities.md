@@ -18,7 +18,7 @@ The SDK must support two primary use cases:
 
 The SDK must provide a representation of each of New Relic's supported metric types:
 [Count](#count), [Gauge](#gauge), and [Summary](#summary).  These representations may be
-immutable data structures, or they may be mutable objects, depending on the idioms of the
+immutable data structures or mutable objects depending on the idioms of the
 language.
 
 All metric types have these common fields:
@@ -77,12 +77,13 @@ All metric types have these common fields:
 
   In addition to the common fields, the summary metric type has the following fields:
 
-  | field  | type |
-  | ------ | ---- |
-  | `min` | numeric |
-  | `max` | numeric |
-  | `count` | integer |
-  | `sum` | integer |
+  | field  | type | notes |
+  | ------ | ---- | ----- |
+  | `min` | numeric | |
+  | `max` | numeric | |
+  | `count` | integer | |
+  | `sum` | integer | |
+  | `interval` | numeric | Length of the time window.  Must be positive.  Serializes to a whole number of milliseconds. |
 
   It must be possible to construct a summary metric with a min, max, count, and sum.
 
@@ -96,8 +97,8 @@ All metric types have these common fields:
       this.min = Math.min(this.min, value);
   }
   ```
-  \*When the fields of a summary are reported to New Relic, they are combined into a
-  single JSON object as the `value` field.
+  >When the fields of a summary are serialized, the `min`, `max`, `count`, and `sum` are
+  combined into a single JSON object as the `value` field.
 
 ### Metric Batch
 
@@ -113,13 +114,13 @@ The SDK must allow setting all of these fields on a span:
 
   | field          | type      | notes                    |
   | ------         | ----      | -----                    |
-  | `id`           | string    | _required_               |
-  | `trace id`     | string    | _required_               |
-  | `timestamp`    | timestamp | _required_               |
-  | `duration`     | numeric   | _optional_ Default null. |
-  | `name`         | string    | _optional_ Default null. |
-  | `parent id`    | string    | _optional_ Default null. |
-  | `service name` | string    | _optional_ Default null. |
+  | `id`           | string    | A value for this field is _required_. |
+  | `trace id`     | string    | A value for this field is _required_. |
+  | `timestamp`    | timestamp | A value for this field is _required_. |
+  | `duration`     | numeric   | A value for this field is _optional_. The default value must be `null`. |
+  | `name`         | string    | A value for this field is _optional_. The default value must be `null`. |
+  | `parent id`    | string    | A value for this field is _optional_. The default value must be `null`. |
+  | `service name` | string    | A value for this field is _optional_. The default value must be `null`. |
 
 See also: https://docs.newrelic.com/docs/apm/distributed-tracing/trace-api/introduction-new-relic-trace-api
 
