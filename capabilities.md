@@ -4,8 +4,7 @@ The Telemetry SDK is capable of sending multiple types of telemetry.
 
 ## Metrics
 
-The Telemetry SDK implements the New Relic Metric Data Model.  For detailed information
-about the Metric model, please see the [public docs](link_to_documentation).
+The Telemetry SDK implements the New Relic Metric Data Model.
 
 The SDK must support two primary use cases:
 1. It must be possible to construct them with
