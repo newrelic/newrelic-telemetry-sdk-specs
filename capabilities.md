@@ -36,8 +36,8 @@ It must be possible to construct a metric with a name and set of attributes.
 
   | field | type | notes |
   | ----- | ---- | ----- |
-  | `value` | numeric | |
-  | `interval` | numeric | Length of the time window.  Must be a positive whole number. |
+  | `value` | numeric | Must be positive. |
+  | `interval` | numeric | Length of the time window.  Must be positive.  Serializes to a whole number of milliseconds. |
 
   It must be possible to construct a count metric with a value.
 
