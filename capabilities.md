@@ -4,7 +4,8 @@ The Telemetry SDK is capable of sending multiple types of telemetry.
 
 ## Metrics
 
-The Telemetry SDK implements the New Relic Metric Data Model.
+The Telemetry SDK implements the New Relic Metric Data Model.  For detailed information
+about the Metric model, please see the [public documentation](https://docs.newrelic.com/docs/report-metrics-metric-api).
 
 The SDK must support two primary use cases:
 1. It must be possible to construct them with
@@ -106,6 +107,9 @@ All metric types have these common fields:
 
 ## Spans
 
+The Telemetry SDK implements the New Relic Span Data Model.  For detailed information
+about the Span model, please see the [public documentation](https://docs.newrelic.com/docs/apm/distributed-tracing/trace-api/introduction-new-relic-trace-api).
+
 The SDK must provide a representation of a span with the following fields.  It must be
 possible to serialize this representation for transport to New Relic.
 
@@ -120,8 +124,6 @@ The SDK must allow setting all of these fields on a span:
   | `name`         | string    | A value for this field is _optional_. The default value must be `null`. |
   | `parent id`    | string    | A value for this field is _optional_. The default value must be `null`. |
   | `service name` | string    | A value for this field is _optional_. The default value must be `null`. |
-
-See also: https://docs.newrelic.com/docs/apm/distributed-tracing/trace-api/introduction-new-relic-trace-api
 
 ### Span Batch
 
