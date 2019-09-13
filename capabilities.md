@@ -7,6 +7,15 @@ The Telemetry SDK is capable of sending multiple types of telemetry.
 The Telemetry SDK implements the New Relic Metric Data Model.  For detailed information
 about the Metric model, please see the [public docs](link_to_documentation).
 
+The SDK must support two primary use cases:
+1. The SDK must provide a representation of each of New Relic's supported metric types.
+   These representations may be immutable data structures, or they may be mutable objects,
+   depending on the idioms of the language.  It must be possible to construct them with
+   pre-computed values, and the SDK must be capable of serializing them into the for
+   transport to New Relic.
+2. The SDK must provide aggregation functionality for each of New Relic's supported metric
+   types.  The appropriate aggregation function is different for each metric type.
+
 ### Metric Types
 
 The SDK supports three metric types: [Count](#count), [Gauge](#gauge), and [Summary](#summary).
