@@ -39,3 +39,9 @@ that the telemetry SDKs provide over an HTTP Client are:
 * [Validation](./validation.md)
 * [Configuration & Logging](./configuration-and-logging.md)
 * [Limits](./limits.md)
+* [Exporter Specs](https://github.com/newrelic/newrelic-exporter-specs/)
+
+## Available Telemetry SDK Repositories
+* [Java](https://github.com/newrelic/newrelic-telemetry-sdk-java)
+* [Python](https://github.com/newrelic/newrelic-telemetry-sdk-python)
+* [Go](https://github.com/newrelic/newrelic-telemetry-sdk-go)
