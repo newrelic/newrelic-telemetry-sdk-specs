@@ -17,9 +17,8 @@ The SDK must support two primary use cases:
 ### Metric Types
 
 The SDK must provide a representation of each of New Relic's supported metric types:
-[Count](#count), [Gauge](#gauge), and [Summary](#summary).  These representations may be
-immutable data structures or mutable objects depending on the idioms of the
-language.
+[Count](#count), [Gauge](#gauge), and [Summary](#summary).  These representations should
+be idiomatic for the language of the SDK.
 
 All metric types have these common fields:
 
@@ -36,7 +35,7 @@ All metric types have these common fields:
   | field | type | notes |
   | ----- | ---- | ----- |
   | `value` | numeric | Must be positive. |
-  | `interval` | numeric | Length of the time window.  Must be positive.  Serializes to a whole number of milliseconds. |
+  | `interval` | numeric | Length of the time window.  Must be positive. |
 
   It must be possible to construct a count metric with a value.
 
@@ -117,13 +116,13 @@ The SDK must allow setting all of these fields on a span:
 
   | field          | type      | notes                    |
   | ------         | ----      | -----                    |
-  | `id`           | string    | A value for this field is _required_. |
-  | `trace id`     | string    | A value for this field is _required_. |
-  | `timestamp`    | timestamp | A value for this field is _required_. |
-  | `duration`     | numeric   | A value for this field is _optional_. The default value must be `null`. |
-  | `name`         | string    | A value for this field is _optional_. The default value must be `null`. |
-  | `parent id`    | string    | A value for this field is _optional_. The default value must be `null`. |
-  | `service name` | string    | A value for this field is _optional_. The default value must be `null`. |
+  | `id`           | string    | _required_ |
+  | `trace id`     | string    | _required_ |
+  | `timestamp`    | timestamp | _required_ |
+  | `duration`     | numeric   | _optional_; default to `null` |
+  | `name`         | string    | _optional_; default to `null` |
+  | `parent id`    | string    | _optional_; default to `null` |
+  | `service name` | string    | _optional_; default to `null` |
 
 ### Span Batch
 
