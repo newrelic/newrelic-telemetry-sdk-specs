@@ -45,5 +45,7 @@ that the telemetry SDKs provide over an HTTP Client are:
 * [Python](https://github.com/newrelic/newrelic-telemetry-sdk-python)
 * [Go](https://github.com/newrelic/newrelic-telemetry-sdk-go)
 
-## Telemetry data conversion 
-How New Relic ingests and stores telemetry data can be different from other telemetry systems. How we convert non New Relic telemetry data into a New Relic-friendly format is documented in the [New Relic Exporter Specifications](https://github.com/newrelic/newrelic-exporter-specs).
+## Telemetry data conversion
+How New Relic ingests and stores telemetry data can be different from other telemetry
+systems. How we convert non New Relic telemetry data into a New Relic-friendly format is
+documented in the [New Relic Exporter Specifications](https://github.com/newrelic/newrelic-exporter-specs).
