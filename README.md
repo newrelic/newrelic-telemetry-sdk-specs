@@ -32,10 +32,20 @@ that the telemetry SDKs provide over an HTTP Client are:
   * They know how to provide authentication information in HTTP requests.
   * They implement New Relic's recommended handling of failed requests.
 
-## Specs
+## Contents
 
-* [Capabilities](./capabilites.md)
+* [Capabilities](./capabilities.md)
 * [Communication with New Relic](./communication.md)
 * [Validation](./validation.md)
 * [Configuration & Logging](./configuration-and-logging.md)
 * [Limits](./limits.md)
+
+## Available Telemetry SDK Repositories
+* [Java](https://github.com/newrelic/newrelic-telemetry-sdk-java)
+* [Python](https://github.com/newrelic/newrelic-telemetry-sdk-python)
+* [Go](https://github.com/newrelic/newrelic-telemetry-sdk-go)
+
+## Telemetry data conversion
+How New Relic ingests and stores telemetry data can be different from other telemetry
+systems. How we convert non New Relic telemetry data into a New Relic-friendly format is
+documented in the [New Relic Exporter Specifications](https://github.com/newrelic/newrelic-exporter-specs).
