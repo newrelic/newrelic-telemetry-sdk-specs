@@ -14,8 +14,7 @@ The SDK **MUST** use the [Telemetry ingest APIs](https://docs.newrelic.com/docs/
 
 Payloads of different telemetry types cannot be combined.
 
-All JSON payloads sent to New Relic **MUST** use the [New Relic common format](https://docs.newrelic.com/docs/data-ingest-apis/get-data-new-relic/metric-api/report-metrics-metric-api#body-format).
-
+All JSON payloads sent to New Relic **MUST** use the New Relic common format.
 This is an example of the common format:
 
 ```
@@ -50,7 +49,7 @@ SDK implementations **SHOULD** use the top-level common block to reduce the size
 
 ## Response codes
 
-Vortex validates the basic shape of the request without looking at the POST body. [Its responses are documented here](https://docs.newrelic.com/docs/data-ingest-apis/get-data-new-relic/metric-api/report-metrics-metric-api#response-status-codes).
+The telemetry ingest API validates the basic shape of the request without looking at the POST body. [Its responses are documented here](https://docs.newrelic.com/docs/data-ingest-apis/get-data-new-relic/metric-api/report-metrics-metric-api#response-status-codes).
 
 SDK implementations must perform response code error handling in the Telemetry API as documented below. The telemetry API should provide a mechanism for the consumer of this API to be notified (or react to) any error conditions that may occur rather than hiding all errors from the user.
 
