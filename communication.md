@@ -8,7 +8,37 @@ The SDK **MUST** use the [Telemetry ingest APIs](https://docs.newrelic.com/docs/
 
 * SDKs **MUST** compress the JSON payload with `gzip` encoding by default.
 * Only send API keys as headers (not query params)
-* User-Agent string: `NewRelic-<language>-TelemetrySDK/<version>`
+
+
+### User Agent
+
+All SDKs **MUST** send the following `User-Agent` header by default:
+`NewRelic-<language>-TelemetrySDK/<version>`
+
+Additionally, SDKs **MUST** implement an API which allows appending product
+name and version to the `User-Agent` header in accordance with
+[RFC 7231](https://tools.ietf.org/html/rfc7231#section-5.5.3).
+
+The string appended to the `User-Agent` header **MUST** be in the format: `product/product_version`.
+
+Example:
+
+`NewRelic-Python-TelemetrySDK/0.1 NewRelic-Python-OpenCensus/0.2.1`
+
+```python
+def add_version_info(self, product, product_version):
+    """Adds product and version information to a User-Agent header
+
+    This method implements
+    https://tools.ietf.org/html/rfc7231#section-5.5.3
+
+    :param product: The product name using the SDK
+    :type product: str
+    :param product_version: The version string of the product in use
+    :type product_version: str
+    """
+    self.user_agent += " {}/{}".format(product, product_version)
+```
 
 ### Payload
 
