@@ -26,6 +26,8 @@ sdk-version = token
 The `language` portion of the `sdk-name` needs to be the programming language the SDK is written for and the `sdk-version` is the version of the SDK.
 The rest of this syntax ([`RWS`](https://tools.ietf.org/html/rfc7230#section-3.2.3), [`product`](https://tools.ietf.org/html/rfc7231#section-5.5.3), [`comment`](https://tools.ietf.org/html/rfc7230#section-3.2.6), and [`token`](https://tools.ietf.org/html/rfc7230#section-3.2.6)) all use the meanings defined in [RFC 7231](https://tools.ietf.org/html/rfc7231) and [RFC 7230](https://tools.ietf.org/html/rfc7230)
 
+#### Extending User Agent with Exporter Product
+
 Understanding which exporter was used to export data is an important dimension to have analytics on as well.
 Exporters that use the SDK need to be able to append a `product` identifier of their own to the `User-Agent` header.
 Therefore, all SDKs MUST provide a method to extend the `User-Agent` header field-value.
