@@ -12,7 +12,7 @@ The SDK **MUST** use the [Telemetry ingest APIs](https://docs.newrelic.com/docs/
 
 ### User Agent
 
-The `User-Agent` header field is used to preform analytics on requests received by New Relic.
+The `User-Agent` header field is used to perform analytics on requests received by New Relic.
 In order to enable these analytics, all SDKs MUST include a `User-Agent` header in requests they make to New Relic.
 In addition to conforming to the specification defined in [RFC 7231](https://tools.ietf.org/html/rfc7231#section-5.5.3), the `User-Agent` header MUST include an SDK `product` identifier as its first entry.
 
