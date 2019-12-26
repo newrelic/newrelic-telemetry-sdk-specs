@@ -38,10 +38,12 @@ An example of this `User-Agent` mutation functionality might look like the follo
 class SDK(object):
     _user_agent = "NewRelic-Python-TelemetrySDK/0.1.0"
 
-    def add_user_agent(self, product=None):
+    def add_user_agent(self, product, product_version=None):
         """Add product to the User-Agent header field"""
-        if product:
-            self._user_agent += " {}".format(product)
+        if product_version:
+            product += "/{}".format(product_version)
+
+        self._user_agent += " {}".format(product)
     ...
 ```
 
