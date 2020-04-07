@@ -150,7 +150,7 @@ Relic.
   | field          | type      | notes                    |
   | ------         | ----      | -----                    |
   | `eventType`    | string    | _required_               |
-  | `timestamp`    | timestamp | _required_               |
+  | `timestamp`    | timestamp | _required_, but the SDK should provide a default value of the current time     |
 
 ### Event Batch
 
