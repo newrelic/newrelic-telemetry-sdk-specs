@@ -78,10 +78,10 @@ All metric types have these common fields:
 
   | field  | type | notes |
   | ------ | ---- | ----- |
-  | `min` | numeric | |
-  | `max` | numeric | |
+  | `min` | numeric | This field is optional. When serialized, it may be omitted or the value may be null. |
+  | `max` | numeric | This field is optional. When serialized, it may be omitted or the value may be null. |
   | `count` | integer | |
-  | `sum` | integer | |
+  | `sum` | numeric | |
   | `interval` | numeric | Length of the time window.  Must be positive.  Serializes to a whole number of milliseconds. |
 
   It must be possible to construct a summary metric with a min, max, count, and sum.
