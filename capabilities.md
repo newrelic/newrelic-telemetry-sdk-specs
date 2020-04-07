@@ -128,6 +128,34 @@ The SDK must allow setting all of these fields on a span:
 
   A span batch is a [batch](#batches) that contains only spans.
 
+## Events
+
+The Telemetry SDK implements an abstraction for sending custom events that
+follows the data model convention for spans and metrics.
+
+SDKs sending events must allow for the specification of "common" attributes.
+Common attributes will be attached to every event individually inside of the
+SDK since the current Event API does not allow specification of common
+attributes via the API payload.
+
+For detailed information about the Event API, please see the [public documentation](https://docs.newrelic.com/docs/insights/insights-data-sources/custom-data/introduction-event-api).
+
+The Telemetry SDK must use the following HTTP path for the Event API:
+`/v1/accounts/events`
+
+The SDK must provide a representation of an event with the following fields.
+It must be possible to serialize this representation for transport to New
+Relic.
+
+  | field          | type      | notes                    |
+  | ------         | ----      | -----                    |
+  | `eventType`    | string    | _required_               |
+  | `timestamp`    | timestamp | _required_               |
+
+### Event Batch
+
+  An event batch is a [batch](#batches) that contains only events.
+
 ## Batches
 
 A batch is a data structure containing multiple data points of the same telemetry type.
