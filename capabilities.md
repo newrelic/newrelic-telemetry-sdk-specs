@@ -151,6 +151,7 @@ Relic.
   | ------         | ----      | -----                    |
   | `eventType`    | string    | _required_               |
   | `timestamp`    | timestamp | _required_, but the SDK should provide a default value of the current time     |
+  | `attributes` | dictionary/map/hash | A map of key/value pairs associated with this event.  Values can be a string, numeric, or boolean. |
 
 ### Event Batch
 
