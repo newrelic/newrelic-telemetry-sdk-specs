@@ -157,6 +157,34 @@ Relic.
 
   An event batch is a [batch](#batches) that contains only events.
 
+## Logs
+
+The Telemetry SDK provides an API for sending log entries to
+New Relic's Log API. This implementation is _not recommended_ for sending high-throughput
+logs to New Relic. That capability should be provided by a log forwarder, rather than using
+the Telemetry SDK. The use-cases for using the implementation of the Log API in the Telemetry
+SDK should be limited to cases where using a log forwarder would not be appropriate. As an example,
+it might be appropriate to use this capability to implement the sending of OpenTelemetry Span "Events",
+which are very log-like in their data, but wouldn't end up being sent to a log forwarder.
+
+For detailed information about the Log API, please see the
+[public documentation](https://docs.newrelic.com/docs/logs/new-relic-logs/log-api/introduction-log-api)
+
+By default, the Telemetry SDK must use the following HTTP path for the Log API:
+`/log/v1/`
+
+The SDK must provide a representation of a log entry with the following fields. It must be
+possible to serialize this representation for transport to New Relic.transport
+
+  | field          | type      | notes                    |
+  | ------         | ----      | -----                    |
+  | `timestamp`    | timestamp | _required_, but the SDK should provide a default value of the current time  |
+  | `message`      | string    | technical _optional_, but strongly suggested  |
+  | `attributes`   | dictionary/map/hash | A map of key/value pairs associated with this event.  Values can be a string, numeric, or boolean. |
+
+Note: There are a variety of additional standard attributes that may be provided for, based on the
+conventions described in the [exporter specification](https://github.com/newrelic/newrelic-exporter-specs/tree/master/logging).
+
 ## Batches
 
 A batch is a data structure containing multiple data points of the same telemetry type.
