@@ -95,7 +95,7 @@ SDK implementations must perform response code error handling in the Telemetry A
 | `409` | Conflict | once | no | yes | See: [dropping data](#dropping-data). |
 | `410` | Gone | once | no | yes | See: [dropping data](#dropping-data). |
 | `411` | Missing `Content-Length` header | once | no | yes | See: [dropping data](#dropping-data). Should never occur in the Telemetry SDK but should still be handled |
-| `413` | Payload too large (`1 MB` limit) | each failure | `split` data and retry | no |
+| `413` | Payload too large (`1 MB` limit) | each failure | `split` data and retry | no | See: [splitting data](#splitting-data) |
 | `429` | Too many requests | each failure | Retry based on `Retry-After` response header | no | `Retry-After` (`integer`) for how long wait until next retry in `seconds` |
 | `Anything else` | Unknown | each failure | Retry with backoff | not yet | See [graceful degradation](#graceful-degradation). |
 
@@ -153,3 +153,16 @@ by the SDK.
 SDKs may provide functionality for users to provide their own handler for dropped data, so
 that a user of the SDK may merge unsent data back into their own data collector in the
 way that makes sense for their use case.
+
+### Splitting data
+
+The New Relic ingest API may return an HTTP 413 (payload too large).  The SDK must ensure
+that data that is or would be rejected due to payload size is successfully sent to New Relic.
+
+Some strategies include:
+
+* Preemptively splitting large payloads.
+* Splitting and retrying requests in response to an HTTP 413.
+
+If a request results in an HTTP 413, and the payload of that request cannot be split, the
+SDK should drop the data. See [dropping data](#dropping-data).
