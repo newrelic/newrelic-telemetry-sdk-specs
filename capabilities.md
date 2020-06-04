@@ -161,10 +161,8 @@ Relic.
 
 The Telemetry SDK provides an API for sending log entries to
 New Relic's Log API. This implementation is _not recommended_ for sending high-throughput
-logs to New Relic. That capability should be provided by a log forwarder, rather than using
-the Telemetry SDK. As an example,
-it might be appropriate to use this capability to implement the sending of OpenTelemetry Span "Events",
-which are very log-like in their data, but wouldn't end up being sent to a log forwarder.
+logs to New Relic. See this [blog post](https://blog.newrelic.com/engineering/best-practices-for-log-forwarding/)
+for details.
 
 For detailed information about the Log API, please see the
 [public documentation](https://docs.newrelic.com/docs/logs/new-relic-logs/log-api/introduction-log-api)
