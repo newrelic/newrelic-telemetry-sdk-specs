@@ -26,7 +26,7 @@ To prevent data loss while allowing clients to retransmit in the case of transie
 | ----------- | ------------ | ------------ |
 | x-request-id | A [version 4 UUID string](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)) | [str(uuid.uuid4())](https://docs.python.org/3/library/uuid.html#uuid.uuid4) |
 
-**NOTE** the request ID should be generated at the start of a request "cycle" and the value should be maintained throughout any retries.
+**NOTE** the request ID should be generated before the first attempt to send the request is made and the value should be maintained throughout any retries which transmit the same payload. If the SDK partitions the payload in response to a 413 status code, a unique request ID should be used for the transmission of each partition.
 
 ### User Agent
 
