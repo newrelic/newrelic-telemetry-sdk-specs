@@ -10,6 +10,24 @@ The SDK **MUST** use the [Telemetry ingest APIs](https://docs.newrelic.com/docs/
 * Only send API keys as headers (not query params)
 
 
+### Request ID header
+
+When communicating with data ingest services, there are 3 possible outcomes of the HTTP call:
+
+1. OK status (200 <= status_code < 300), indicating data has been received and persisted.
+2. non-OK status, indicating data has not been persisted
+3. disconnect (either client or server). In this case, the connection is closed prior to receiving a status indication.
+
+In case (3) above, the client should only retry the request if the request is idempotent since data may or may not have been persisted (and thus the data may get recorded twice, resulting in the data aggregates being inaccurate).
+
+To prevent data loss while allowing clients to retransmit in the case of transient failures, the ingest service must be able to identify duplicate requests; therefore, all SDKs **MUST** send the following HTTP header with the request:
+
+| Header Name | Header Value | Code Example |
+| ----------- | ------------ | ------------ |
+| x-request-id | A [version 4 UUID string](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)) | [str(uuid.uuid4())](https://docs.python.org/3/library/uuid.html#uuid.uuid4) |
+
+**NOTE** the request ID should be generated before the first attempt to send the request is made and the value should be maintained throughout any retries which transmit the same payload. If the SDK partitions the payload in response to a 413 status code, a unique request ID should be used for the transmission of each partition.
+
 ### User Agent
 
 All SDKs **MUST** send the following `User-Agent` header by default:
