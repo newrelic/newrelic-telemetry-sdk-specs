@@ -58,6 +58,48 @@ def add_version_info(self, product, product_version):
     self.user_agent += " {}/{}".format(product, product_version)
 ```
 
+## Additional headers base on content
+
+SDK implentations **SHOULD** allow the client to add additional headers based on the content of the payload being sent.
+This is useful as some implementations of the telemtry endpoint may need additional headers set based on the payload.
+
+Example:
+
+```golang
+h, err = telemetry.NewHarvester(
+func(cfg *telemetry.Config) {
+  cfg.HeaderProcessor = func(batch telemetry.DataBatch) (headers []telemetry.RequestHeader) {
+    // Get count of metrics in payload
+    metricCount := len(batch.GetDataTypes())
+    // Set header with metric count of batch
+    headers = []telemetry.RequestHeader{{Key: "X-METRIC-COUNT", Value: fmt.Sprintf("%v", metricCount)}}
+    return
+  }
+})
+```
+
+It is also useful for setting headers on every request without having to dig deep into the internals of HTTP client the SDK implentation uses.
+This way any changes to the underlinging HTTP client can happen without worrying about making breaking changes for end users.
+
+Example:
+
+```golang
+h, err = telemetry.NewHarvester(
+func(cfg *telemetry.Config) {
+  cfg.HeaderProcessor = func(batch telemetry.DataBatch) (headers []telemetry.RequestHeader) {
+    headers = []telemetry.RequestHeader{{Key:"X-License-Key", Value: "ABCDEFG123456"}}
+    return
+  }
+})
+```
+
+**NOTE** These headers **SHOULD** be added post setting of any default headers by the SDK.
+This allows users to easily override any default headers.
+
+It is recommended that a list of headers should be returned back to the SDK so that the order they are applied is always consitent.
+They should be applied on top of the SDK headers in the order that is returned from the override.
+If the list contains two competing headers (i.e. both try to set the same header) then the last one in the list always wins.
+
 ### Payload
 
 Payloads of different telemetry types cannot be combined.
