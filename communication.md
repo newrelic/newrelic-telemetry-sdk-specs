@@ -30,32 +30,47 @@ To prevent data loss while allowing clients to retransmit in the case of transie
 
 ### User Agent
 
-All SDKs **MUST** send the following `User-Agent` header by default:
-`NewRelic-<language>-TelemetrySDK/<version>`
+The `User-Agent` header field is used to perform analytics on requests received by New Relic.
+In order to enable these analytics, all SDKs MUST include a `User-Agent` header in requests they make to New Relic.
+In addition to conforming to the specification defined in [RFC 7231](https://tools.ietf.org/html/rfc7231#section-5.5.3), the `User-Agent` header MUST include an SDK `product` identifier as its first entry.
 
-Additionally, SDKs **MUST** implement an API which allows appending product
-name and version to the `User-Agent` header in accordance with
-[RFC 7231](https://tools.ietf.org/html/rfc7231#section-5.5.3).
+```
+User-Agent  = sdk-id *( RWS ( product / comment ) )
+sdk-id      = sdk-name "/" sdk-version
+sdk-name    = "NewRelic-" language "-TelemetrySDK"
+sdk-version = token
+```
 
-The string appended to the `User-Agent` header **MUST** be in the format: `product/product_version`.
+The `language` portion of the `sdk-name` needs to be the programming language the SDK is written for and the `sdk-version` is the version of the SDK.
+The rest of this syntax ([`RWS`](https://tools.ietf.org/html/rfc7230#section-3.2.3), [`product`](https://tools.ietf.org/html/rfc7231#section-5.5.3), [`comment`](https://tools.ietf.org/html/rfc7230#section-3.2.6), and [`token`](https://tools.ietf.org/html/rfc7230#section-3.2.6)) all use the meanings defined in [RFC 7231](https://tools.ietf.org/html/rfc7231) and [RFC 7230](https://tools.ietf.org/html/rfc7230)
 
-Example:
+#### Extending User Agent with Exporter Product
 
-`NewRelic-Python-TelemetrySDK/0.1 NewRelic-Python-OpenCensus/0.2.1`
+Understanding which exporter was used to export data is an important dimension to have analytics on as well.
+Exporters that use the SDK need to be able to append a `product` identifier of their own to the `User-Agent` header.
+Therefore, all SDKs MUST provide a method to extend the `User-Agent` header field-value.
+This method SHOULD accept the exporter determined `product` identifier as an argument.
+The exact form and the validity of this `product` identifier SHOULD be left to the exporter to determine.
+
+An example of this `User-Agent` mutation functionality might look like the following.
 
 ```python
-def add_version_info(self, product, product_version):
-    """Adds product and version information to a User-Agent header
+class SDK(object):
+    _user_agent = "NewRelic-Python-TelemetrySDK/0.1.0"
 
-    This method implements
-    https://tools.ietf.org/html/rfc7231#section-5.5.3
+    def add_user_agent(self, product, product_version=None):
+        """Add product to the User-Agent header field"""
+        if product_version:
+            product += "/{}".format(product_version)
 
-    :param product: The product name using the SDK
-    :type product: str
-    :param product_version: The version string of the product in use
-    :type product_version: str
-    """
-    self.user_agent += " {}/{}".format(product, product_version)
+        self._user_agent += " {}".format(product)
+    ...
+```
+
+Then, when this SDK is used to build a `NewRelic-Python-OpenCensus/0.2.1` exporter, the `User-Agent` header sent in a request would look like the following.
+
+```
+User-Agent: NewRelic-Python-TelemetrySDK/0.1.0 NewRelic-Python-OpenCensus/0.2.1
 ```
 
 ### Payload
