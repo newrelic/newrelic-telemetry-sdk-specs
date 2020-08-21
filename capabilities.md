@@ -9,7 +9,7 @@ about the Metric model, please see the [public documentation](https://docs.newre
 
 The SDK must support two primary use cases:
 1. It must be possible to construct them with
-   pre-computed values, and the SDK must be capable of serializing them into the for
+   pre-computed values, and the SDK must be capable of serializing them for
    transport to New Relic.
 2. The SDK must provide aggregation functionality for each of New Relic's supported metric
    types.  The appropriate aggregation function is different for each metric type.
@@ -30,7 +30,7 @@ All metric types have these common fields:
 
 #### `Count`
 
-  In addition to the common fields, the count metric type has the following field:
+  In addition to the common fields, the count metric type has the following fields:
 
   | field | type | notes |
   | ----- | ---- | ----- |
@@ -176,7 +176,7 @@ possible to serialize this representation for transport to New Relic.transport
   | field          | type      | notes                    |
   | ------         | ----      | -----                    |
   | `timestamp`    | timestamp | _required_, but the SDK should provide a default value of the current time  |
-  | `message`      | string    | technical _optional_, but strongly suggested  |
+  | `message`      | string    | technically _optional_, but strongly suggested  |
   | `attributes`   | dictionary/map/hash | A map of key/value pairs associated with this event.  Values can be a string, numeric, or boolean. |
 
 Note: There are a variety of additional standard attributes that may be provided for, based on the

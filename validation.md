@@ -2,10 +2,6 @@
 
 The New Relic telemetry ingest pipeline performs lightweight synchronous validation on all inbound requests as well as a more thorough asynchronous validation on the payload contents. SDK implementations **SHOULD** only perform minimal validation on input data as noted below.
 
-## MELT ingest pipeline
-
-![image](MELT-ingest-pipeline.png)
-
 ## SDK validation
 
 In an effort to keep SDK complexity low the SDK implementation **MUST** limit its validation to the bare minimum required to be safe for clients. The SDK **MUST NOT** throw exceptions or errors on data ingest unless the caller is explicitly notified of the possibility. 
@@ -18,9 +14,9 @@ For example, in languages where `NaN` or `Infinity` can be represented these val
 
 The New Relic telemetry ingest pipline has its own set of limits and restrictions on inbound data that it enforces at various stages of data ingest.
 
-Initial lightweight validation of inbound requests occur synchronously and result in [Response codes](#response-codes) being sent back to the SDK to indicate failed validation.
+Initial lightweight validation of inbound requests occur synchronously and result in [Response codes](communication.md#response-codes) being sent back to the SDK to indicate failed validation.
 
-A more thorough validation of payload contents occurs asynchronously the SDK will not be directly notified of this failure. Instead, a custom event named `NrIntegrationError` is emitted to the account that includes data about the failure. Some potential failure cases are listed below:
+A more thorough validation of payload contents occurs asynchronously. If this fails, the SDK will not be directly notified. Instead, a custom event named `NrIntegrationError` is emitted to the account that includes data about the failure. Some potential failure cases are listed below:
 
 | Failure | Discard data point | Discard payload |
 | ------- | -------------------| ----------------|
@@ -31,4 +27,4 @@ A more thorough validation of payload contents occurs asynchronously the SDK wil
 
 ### New Relic storage constraints
 
-The New Relic backend has limits on the size and number of attributes that may be stored for data points. Detailed explanations of these limits can be found here: [Metric API Limits](https://docs.google.com/document/d/1YQniWHGxO6WcOk3AQLOzchiMksNJ3zCY_aPo8Zk8des/edit#heading=h.bp5nzjycedpw)
+The New Relic backend has limits on the size and number of attributes that may be stored for data points. When these limits are exceeded, an `NrIntegrationError` is emitted to the account.
