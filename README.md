@@ -46,6 +46,8 @@ that the telemetry SDKs provide over an HTTP Client are:
 * [Go](https://github.com/newrelic/newrelic-telemetry-sdk-go)
 * [.NET](https://github.com/newrelic/newrelic-telemetry-sdk-dotnet)
 * [Node](https://github.com/newrelic/newrelic-telemetry-sdk-node)
+* [C](https://github.com/newrelic/newrelic-telemetry-sdk-c)
+* [Rust (alpha)](https://github.com/newrelic/newrelic-telemetry-sdk-rust)
 
 ## Telemetry data conversion
 How New Relic ingests and stores telemetry data can be different from other telemetry
