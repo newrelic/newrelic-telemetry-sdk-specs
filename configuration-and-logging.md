@@ -18,12 +18,6 @@ SDK implementations must allow for configuration of the following options:
 5. `Audit logging enabled`
   * If audit logging is enabled, the SDK should record additional highly verbose debugging information at the `DEBUG` logging level.  The default value for this setting must be `false`.
 
-## No-op behavior
-
-When the Telemetry API is in use by customers it will lead to API calls being used (possibly extensively) throughout customer code. If the customer needs to quickly disable these API calls the SDK must provide a no-op implementation that the customer can swap in without requiring that they modify all API call sites.
-
-By providing a no-op implementation this means that any call to the Telemetry API will effectively have zero cost until a real implementation is swapped back in.
-
 # Logging
 
 SDK implementations should log troubleshooting and error information by whatever means is
