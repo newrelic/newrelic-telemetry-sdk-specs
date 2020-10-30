@@ -47,6 +47,7 @@ that the telemetry SDKs provide over an HTTP Client are:
 * [.NET](https://github.com/newrelic/newrelic-telemetry-sdk-dotnet)
 * [Node](https://github.com/newrelic/newrelic-telemetry-sdk-node)
 * [C](https://github.com/newrelic/newrelic-telemetry-sdk-c)
+* [Ruby](https://github.com/newrelic/newrelic-telemetry-sdk-ruby)
 * [Rust (alpha)](https://github.com/newrelic/newrelic-telemetry-sdk-rust)
 
 ## Telemetry data conversion
