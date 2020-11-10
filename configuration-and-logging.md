@@ -11,6 +11,7 @@ SDK implementations must allow for configuration of the following options:
 4. `Failed request retrying`
   * It must be possible to configure the _backoff factor_, that is the amount of time to wait
     after a failed request before attempting to send the request again.
+  * It must also be possible to configure _backoff max_, the maximum amount of time to wait between retrying the request.
   * It must also be possible to configure the _max retries_.
     See [communication backoff](./communication.md#graceful-degradation).
 5. `Logging`
