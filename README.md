@@ -1,3 +1,5 @@
+<a href="https://opensource.newrelic.com/oss-category/#community-project"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/dark/Community_Project.png"><source media="(prefers-color-scheme: light)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Community_Project.png"><img alt="New Relic Open Source community project banner." src="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Community_Project.png"></picture></a>
+
 # Telemetry SDK specs
 The telemetry SDK specs is a documentation repository that describes the basic features
 shared across language implementations of the New Relic Telemetry SDKs. You should use
@@ -54,3 +56,18 @@ that the telemetry SDKs provide over an HTTP Client are:
 How New Relic ingests and stores telemetry data can be different from other telemetry
 systems. How we convert non New Relic telemetry data into a New Relic-friendly format is
 documented in the [New Relic Exporter Specifications](https://github.com/newrelic/newrelic-exporter-specs).
+
+## Support
+
+For support with New Relic products, please visit the [New Relic Explorers Hub](https://forum.newrelic.com/s/).
+
+## Contributing
+
+Please see [this guide](./CONTRIBUTING.md) for details on how to contribute to this project. 
+
+**A note about vulnerabilities**
+
+As noted in our [security policy](../../security/policy), New Relic is committed to the privacy and security of our customers and their data. We believe that providing coordinated disclosure by security researchers and engaging with the security community are important means to achieve our security goals.
+
+If you believe you have found a security vulnerability in this project or any of New Relic's products or websites, we welcome and greatly appreciate you reporting it to New Relic through [HackerOne](https://hackerone.com/newrelic).
+
