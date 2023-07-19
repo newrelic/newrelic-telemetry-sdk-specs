@@ -57,6 +57,10 @@ How New Relic ingests and stores telemetry data can be different from other tele
 systems. How we convert non New Relic telemetry data into a New Relic-friendly format is
 documented in the [New Relic Exporter Specifications](https://github.com/newrelic/newrelic-exporter-specs).
 
+## Support
+
+For support with New Relic products, please visit the [New Relic Explorers Hub](https://forum.newrelic.com/s/).
+
 ## Contributing
 
 Please see [this guide](./CONTRIBUTING.md) for details on how to contribute to this project. 
