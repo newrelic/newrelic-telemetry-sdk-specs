@@ -140,6 +140,14 @@ facilities to gracefully handle these failure cases or allow the consumer to han
 as they see fit.  The SDKs must also provide functionality to make a request with no
 response handling or retrying.
 
+#### Timeouts
+
+Telemetry SDKs should use reasonable timeout limits when sending requests to New Relic.
+The recommended value for this timeout is **10 seconds**.  Low timeout values (e.g. 
+less than one second) can result in intermittent failures due to fluctuations in response times.
+
+#### Retries and backoff
+
 The recommended handling of failed requests to the ingest API is to retry the request at
 increasing intervals and to eventually drop data if the request cannot be completed.
 
